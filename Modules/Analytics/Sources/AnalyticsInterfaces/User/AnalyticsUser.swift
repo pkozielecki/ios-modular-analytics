@@ -1,3 +1,8 @@
+//
+//  AnalyticsUser.swift
+//  Analytics
+//
+
 import Foundation
 
 public struct AnalyticsUser: Equatable {

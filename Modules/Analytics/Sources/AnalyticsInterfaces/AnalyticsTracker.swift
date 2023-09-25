@@ -1,3 +1,8 @@
+//
+//  AnalyticsTracker.swift
+//  Analytics
+//
+
 import Foundation
 
 public protocol AnalyticsTracker {

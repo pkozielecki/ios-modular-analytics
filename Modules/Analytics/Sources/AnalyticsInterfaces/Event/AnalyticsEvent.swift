@@ -1,3 +1,8 @@
+//
+//  AnalyticsEvent.swift
+//  Analytics
+//
+
 import Foundation
 
 public struct AnalyticsEvent: Equatable {

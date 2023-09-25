@@ -1,3 +1,8 @@
+//
+//  FirebaseAnalyticsWrapper.swift
+//  Analytics
+//
+
 import Foundation
 import FirebaseAnalytics
 

@@ -13,6 +13,8 @@
 		2A5EC0872ABC2BA000B8014C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A5EC0862ABC2BA000B8014C /* Preview Assets.xcassets */; };
 		2A5EC0912ABC2BA000B8014C /* ModularAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5EC0902ABC2BA000B8014C /* ModularAnalyticsTests.swift */; };
 		2A5EC0B52ABD659100B8014C /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5EC0B42ABD659100B8014C /* Dependencies */; };
+		2A5EC0B92AC1607E00B8014C /* SwiftFormat in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5EC0B82AC1607E00B8014C /* SwiftFormat */; };
+		2A5EC0BB2AC1607E00B8014C /* swiftformat in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5EC0BA2AC1607E00B8014C /* swiftformat */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A5EC0B52ABD659100B8014C /* Dependencies in Frameworks */,
+				2A5EC0BB2AC1607E00B8014C /* swiftformat in Frameworks */,
+				2A5EC0B92AC1607E00B8014C /* SwiftFormat in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +131,8 @@
 			name = ModularAnalytics;
 			packageProductDependencies = (
 				2A5EC0B42ABD659100B8014C /* Dependencies */,
+				2A5EC0B82AC1607E00B8014C /* SwiftFormat */,
+				2A5EC0BA2AC1607E00B8014C /* swiftformat */,
 			);
 			productName = ModularAnalytics;
 			productReference = 2A5EC07C2ABC2B9F00B8014C /* ModularAnalytics.app */;
@@ -180,6 +186,7 @@
 			mainGroup = 2A5EC0732ABC2B9F00B8014C;
 			packageReferences = (
 				2A5EC0B32ABD659100B8014C /* XCRemoteSwiftPackageReference "swift-dependencies" */,
+				2A5EC0B72AC1607E00B8014C /* XCRemoteSwiftPackageReference "SwiftFormat" */,
 			);
 			productRefGroup = 2A5EC07D2ABC2B9F00B8014C /* Products */;
 			projectDirPath = "";
@@ -496,6 +503,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		2A5EC0B72AC1607E00B8014C /* XCRemoteSwiftPackageReference "SwiftFormat" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nicklockwood/SwiftFormat";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.52.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -503,6 +518,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A5EC0B32ABD659100B8014C /* XCRemoteSwiftPackageReference "swift-dependencies" */;
 			productName = Dependencies;
+		};
+		2A5EC0B82AC1607E00B8014C /* SwiftFormat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A5EC0B72AC1607E00B8014C /* XCRemoteSwiftPackageReference "SwiftFormat" */;
+			productName = SwiftFormat;
+		};
+		2A5EC0BA2AC1607E00B8014C /* swiftformat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A5EC0B72AC1607E00B8014C /* XCRemoteSwiftPackageReference "SwiftFormat" */;
+			productName = swiftformat;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

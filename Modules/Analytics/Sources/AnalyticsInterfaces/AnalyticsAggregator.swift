@@ -1,3 +1,8 @@
+//
+//  AnalyticsAggregator.swift
+//  Analytics
+//
+
 import Foundation
 
 public protocol AnalyticsAggregator: AnalyticsTracker, AnalyticsSessionManager {

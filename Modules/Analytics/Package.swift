@@ -20,6 +20,7 @@ let package = Package(
         ],
         dependencies: [
             .package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "10.4.0")),
+            .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.50.4"),
         ],
         targets: [
             .target(

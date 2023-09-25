@@ -1,9 +1,14 @@
+//
+//  LiveAnalyticsAggregator.swift
+//  Analytics
+//
+
 import Foundation
 import AnalyticsInterfaces
 
 public final class LiveAnalyticsAggregator: AnalyticsAggregator {
     public let clients: [AnalyticsClient]
-    
+
     public init(clients: [AnalyticsClient]) {
         self.clients = clients
     }

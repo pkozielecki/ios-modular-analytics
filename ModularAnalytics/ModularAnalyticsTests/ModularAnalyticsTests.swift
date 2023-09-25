@@ -1,8 +1,6 @@
 //
 //  ModularAnalyticsTests.swift
-//  ModularAnalyticsTests
-//
-//  Created by Pawel Kozielecki on 21/09/2023.
+//  Modular Analytics POC
 //
 
 import XCTest
@@ -28,9 +26,8 @@ final class ModularAnalyticsTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        self.measure {
+        measure {
             // Put the code you want to measure the time of here.
         }
     }
-
 }

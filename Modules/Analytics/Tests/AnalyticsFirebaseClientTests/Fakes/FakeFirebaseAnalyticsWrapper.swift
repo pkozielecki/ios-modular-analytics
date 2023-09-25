@@ -1,13 +1,18 @@
+//
+//  FakeFirebaseAnalyticsWrapper.swift
+//  Analytics
+//
+
 import Foundation
 import AnalyticsInterfaces
 
 @testable import AnalyticsFirebaseClient
 
 final class FakeFirebaseAnalyticsWrapper: FirebaseAnalyticsWrapper {
-    static private (set) var lastLoggedEventName: String?
-    static private (set) var lastLoggedEventParameters: [String: Any]?
-    static private (set) var lastSetUserId: String?
-    static private (set) var lastSetUserProperties = [String:String]()
+    private(set) static var lastLoggedEventName: String?
+    private(set) static var lastLoggedEventParameters: [String: Any]?
+    private(set) static var lastSetUserId: String?
+    private(set) static var lastSetUserProperties = [String: String]()
 
     class func logEvent(_ name: String, parameters: [String: Any]?) {
         lastLoggedEventName = name
@@ -22,8 +27,7 @@ final class FakeFirebaseAnalyticsWrapper: FirebaseAnalyticsWrapper {
         lastSetUserId = userID
     }
 
-    class func setAnalyticsCollectionEnabled(_ enabled: Bool) {
-    }
+    class func setAnalyticsCollectionEnabled(_ enabled: Bool) {}
 }
 
 extension FakeFirebaseAnalyticsWrapper {

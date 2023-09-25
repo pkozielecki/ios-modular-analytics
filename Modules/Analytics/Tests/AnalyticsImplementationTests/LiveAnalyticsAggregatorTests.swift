@@ -1,3 +1,8 @@
+//
+//  LiveAnalyticsAggregatorTests.swift
+//  Analytics
+//
+
 import Foundation
 import XCTest
 import AnalyticsInterfaces
@@ -11,7 +16,7 @@ final class AnalyticsAggregatorTest: XCTestCase {
     override func setUp() {
         fakeAnalyticsClient = FakeAnalyticsClient()
         sut = LiveAnalyticsAggregator(
-                clients: [fakeAnalyticsClient]
+            clients: [fakeAnalyticsClient]
         )
     }
 

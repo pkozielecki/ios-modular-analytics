@@ -1,3 +1,8 @@
+//
+//  ContentView.swift
+//  Modular Analytics POC
+//
+
 import SwiftUI
 
 struct ContentView: View {

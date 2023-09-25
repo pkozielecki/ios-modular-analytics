@@ -1,3 +1,8 @@
+//
+//  FirebaseAnalyticsClient.swift
+//  Analytics
+//
+
 import Foundation
 import FirebaseAnalytics
 import AnalyticsInterfaces
@@ -35,7 +40,7 @@ final class FirebaseAnalyticsClient: AnalyticsClient {
 }
 
 private extension FirebaseAnalyticsClient {
-    
+
     func setSessionParameters(analyticsUser: AnalyticsUser?) {
         analyticsWrapper.setUserProperty(analyticsUser?.pushNotificationsEnabled.analyticsValue, forName: AnalyticsSessionParameters.pushNotifications.rawValue)
         analyticsWrapper.setUserProperty(analyticsUser?.isBiometricsEnabled.analyticsValue, forName: AnalyticsSessionParameters.isBiometricAuthenticationEnabled.rawValue)

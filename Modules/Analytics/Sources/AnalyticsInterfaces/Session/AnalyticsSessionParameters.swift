@@ -1,3 +1,8 @@
+//
+//  AnalyticsSessionParameters.swift
+//  Analytics
+//
+
 import Foundation
 
 public enum AnalyticsSessionParameters: String {
