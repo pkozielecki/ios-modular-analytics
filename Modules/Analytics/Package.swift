@@ -46,6 +46,13 @@ let package = Package(
                         "AnalyticsInterfaces",
                         "AnalyticsImplementation"
                     ]
+            ),
+            .testTarget(
+                    name: "AnalyticsFirebaseClientTests",
+                    dependencies: [
+                        "AnalyticsInterfaces",
+                        "AnalyticsFirebaseClient"
+                    ]
             )
         ]
 )

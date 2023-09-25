@@ -48,7 +48,7 @@ private extension FirebaseAnalyticsClient {
     }
 }
 
-private extension Bool {
+extension Bool {
 
     var analyticsValue: String {
         self ? "1" : "0"
