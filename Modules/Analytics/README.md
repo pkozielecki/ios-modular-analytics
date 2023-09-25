@@ -5,7 +5,7 @@ A single point of entry into the app analytics. A wrapper around various analyti
 ## Installation
 
 * Link AnalyticsInterfaces package
-* Link Dependencies package
+* Link DependenciesInterfaces package
 * Import AnalyticsInterfaces
-* Import Dependencies
-* Use @Dependency to get live implementetion of the AnalyticsAggregator
+* Import DependenciesInterfaces
+* Use `resolve()` to get live implementetion of the AnalyticsAggregator

@@ -29,4 +29,8 @@ class FakeAnalyticsClient: AnalyticsClient {
     func start(session: AnalyticsSession) {
         lastStartedSession = session
     }
+
+    func trackFirstInstallation() {
+        lastTrackedEvent = AnalyticsEvent(name: AnalyticsEvent.Name.firstInstallation.rawValue, collection: .installationTracking)
+    }
 }

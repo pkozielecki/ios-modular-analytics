@@ -20,12 +20,14 @@ let package = Package(
         ],
         dependencies: [
             .package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "10.4.0")),
+//            .package(url: "https://github.com/pointfreeco/swift-dependencies", .upToNextMajor(from: "1.0.0")),
             .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.50.4"),
         ],
         targets: [
             .target(
                     name: "AnalyticsInterfaces",
                     dependencies: [
+                        .product(name: "SwiftFormat", package: "SwiftFormat")
                     ]
             ),
             .target(
@@ -38,6 +40,7 @@ let package = Package(
                     name: "AnalyticsFirebaseClient",
                     dependencies: [
                         .product(name: "FirebaseAnalyticsSwift", package: "firebase-ios-sdk"),
+//                        .product(name: "Dependencies", package: "swift-dependencies"),
                         "AnalyticsInterfaces"
                     ]
             ),

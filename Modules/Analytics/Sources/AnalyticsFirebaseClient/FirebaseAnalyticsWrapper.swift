@@ -6,7 +6,7 @@
 import Foundation
 import FirebaseAnalytics
 
-protocol FirebaseAnalyticsWrapper: AnyObject {
+public protocol FirebaseAnalyticsWrapper: AnyObject {
 
     static func logEvent(_ name: String, parameters: [String: Any]?)
 

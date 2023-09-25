@@ -6,36 +6,45 @@
 import Foundation
 import FirebaseAnalytics
 import AnalyticsInterfaces
+import StorageInterfaces
 
-final class FirebaseAnalyticsClient: AnalyticsClient {
-
+public final class FirebaseAnalyticsClient: AnalyticsClient {
+    private let storage: SimpleStorage
     private let analyticsWrapper: FirebaseAnalyticsWrapper.Type
 
-    init(analyticsWrapper: FirebaseAnalyticsWrapper.Type = Analytics.self) {
+    public init(
+        storage: SimpleStorage,
+        analyticsWrapper: FirebaseAnalyticsWrapper.Type = Analytics.self
+    ) {
+        self.storage = storage
         self.analyticsWrapper = analyticsWrapper
     }
 
-    func track(event: AnalyticsEvent) {
+    public func track(event: AnalyticsEvent) {
         analyticsWrapper.logEvent(event.analyticsName, parameters: event.context)
     }
 
-    func start(timedEvent: AnalyticsEvent) {
+    public func start(timedEvent: AnalyticsEvent) {
         let name = composeTimedEventName(event: timedEvent, isStarting: true)
         analyticsWrapper.logEvent(name, parameters: timedEvent.context)
     }
 
-    func stop(timedEvent: AnalyticsEvent) {
+    public func stop(timedEvent: AnalyticsEvent) {
         let name = composeTimedEventName(event: timedEvent, isStarting: false)
         analyticsWrapper.logEvent(name, parameters: timedEvent.context)
     }
 
-    func start(session: AnalyticsSession) {
+    public func start(session: AnalyticsSession) {
         switch session {
         case .unauthenticated:
             setSessionParameters(analyticsUser: nil)
         case let .authenticated(analyticsUser):
             setSessionParameters(analyticsUser: analyticsUser)
         }
+    }
+
+    public func trackFirstInstallation() {
+        analyticsWrapper.logEvent(AnalyticsEvent.Name.firstInstallation.rawValue, parameters: nil)
     }
 }
 

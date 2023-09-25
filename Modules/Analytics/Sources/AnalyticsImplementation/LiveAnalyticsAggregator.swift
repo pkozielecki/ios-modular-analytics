@@ -36,4 +36,10 @@ public final class LiveAnalyticsAggregator: AnalyticsAggregator {
             $0.stop(timedEvent: timedEvent)
         }
     }
+
+    public func trackFirstInstallation() {
+        clients.forEach {
+            $0.trackFirstInstallation()
+        }
+    }
 }
