@@ -1,3 +1,8 @@
+//
+//  AnalyticsEventName.swift
+//  Analytics
+//
+
 import Foundation
 
 extension AnalyticsEvent {
