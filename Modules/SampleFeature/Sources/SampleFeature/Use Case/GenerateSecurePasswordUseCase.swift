@@ -6,12 +6,18 @@
 import Foundation
 
 public struct GenerateSecurePasswordUseCase {
+    private let delayGenerator: DelayGenerator
+
+    public init(
+        delayGenerator: DelayGenerator = LiveDelayGenerator()
+    ) {
+        self.delayGenerator = delayGenerator
+    }
 
     // TODO: Move password generation to a separate utility.
 
     public func generatePassword() async -> String {
-        let seconds = UInt64(Int.random(in: 1...6) * 5000000000)
-        try? await Task.sleep(nanoseconds: seconds)
+        await delayGenerator.delay(for: Double.random(in: 0.5...1))
         return UUID().uuidString
     }
 }

@@ -9,20 +9,24 @@ import StorageInterfaces
 
 public struct StoreSecurePasswordUseCase {
     private let storage: SimpleStorage
+    private let delayGenerator: DelayGenerator
 
-    public init(storage: SimpleStorage = resolve()) {
+    public init(
+        storage: SimpleStorage = resolve(),
+        delayGenerator: DelayGenerator = LiveDelayGenerator()
+    ) {
         self.storage = storage
+        self.delayGenerator = delayGenerator
     }
 
     public func store(password: String) async throws {
-        guard password.isEmpty else {
+        guard !password.isEmpty else {
             throw PasswordError.emptyPassword
         }
         guard let passwordData = password.encoded() else {
             throw PasswordError.unableToEncodePassword
         }
-        let seconds = UInt64(Int.random(in: 1...6) * 5000000000)
-        try? await Task.sleep(nanoseconds: seconds)
+        await delayGenerator.delay(for: Double.random(in: 1...3))
         storage.set(passwordData, forKey: StorageKeys.password)
     }
 }
