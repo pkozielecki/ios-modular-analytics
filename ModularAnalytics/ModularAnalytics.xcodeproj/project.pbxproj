@@ -10,9 +10,10 @@
 		2A5EC0842ABC2BA000B8014C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A5EC0832ABC2BA000B8014C /* Assets.xcassets */; };
 		2A5EC0872ABC2BA000B8014C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A5EC0862ABC2BA000B8014C /* Preview Assets.xcassets */; };
 		2A5EC0912ABC2BA000B8014C /* ModularAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5EC0902ABC2BA000B8014C /* ModularAnalyticsTests.swift */; };
-		2A5EC0C22AC1B1E400B8014C /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5EC0C12AC1B1E400B8014C /* Dependencies */; };
-		2A5EC0C42AC1B1EB00B8014C /* Analytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5EC0C32AC1B1EB00B8014C /* Analytics */; };
-		2A5EC0C62AC1B1EB00B8014C /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5EC0C52AC1B1EB00B8014C /* Storage */; };
+		2A5EC0D12AC45E0F00B8014C /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5EC0D02AC45E0F00B8014C /* Dependencies */; };
+		2A5EC0D32AC45E0F00B8014C /* SampleFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5EC0D22AC45E0F00B8014C /* SampleFeature */; };
+		2A5EC0D52AC45E0F00B8014C /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5EC0D42AC45E0F00B8014C /* Storage */; };
+		2A5EC0D82AC460AF00B8014C /* Analytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5EC0D72AC460AF00B8014C /* Analytics */; };
 		E81875E2652F3B94C8E013F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8187B2AC6083EE7A9D9962D /* AppDelegate.swift */; };
 		E8187639B22AD7DCADD6FF56 /* ModularAnalyticsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81876E054CE627A2156C4C3 /* ModularAnalyticsApp.swift */; };
 		E818786E0DACA7C314E7662F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8187FAF05922EA2D7016FD9 /* ContentView.swift */; };
@@ -35,10 +36,10 @@
 		2A5EC0862ABC2BA000B8014C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2A5EC08C2ABC2BA000B8014C /* ModularAnalyticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ModularAnalyticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A5EC0902ABC2BA000B8014C /* ModularAnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModularAnalyticsTests.swift; sourceTree = "<group>"; };
-		2A5EC0B02ABC631B00B8014C /* Analytics */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Analytics; path = ../Modules/Analytics; sourceTree = "<group>"; };
 		2A5EC0B62AC15A6B00B8014C /* Storage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Storage; path = ../Modules/Storage; sourceTree = "<group>"; };
 		2A5EC0BC2AC1868300B8014C /* Dependencies */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Dependencies; path = ../Modules/Dependencies; sourceTree = "<group>"; };
 		2A5EC0CC2AC2CCBE00B8014C /* SampleFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SampleFeature; path = ../Modules/SampleFeature; sourceTree = "<group>"; };
+		2A5EC0D62AC45E6200B8014C /* Analytics */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Analytics; path = ../Modules/Analytics; sourceTree = "<group>"; };
 		E81876E054CE627A2156C4C3 /* ModularAnalyticsApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModularAnalyticsApp.swift; path = Sources/ModularAnalyticsApp.swift; sourceTree = "<group>"; };
 		E8187B2AC6083EE7A9D9962D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Sources/AppDelegate.swift; sourceTree = "<group>"; };
 		E8187B88F4639952A8DA17CE /* DependenciesInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependenciesInitializer.swift; sourceTree = "<group>"; };
@@ -50,9 +51,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A5EC0C62AC1B1EB00B8014C /* Storage in Frameworks */,
-				2A5EC0C22AC1B1E400B8014C /* Dependencies in Frameworks */,
-				2A5EC0C42AC1B1EB00B8014C /* Analytics in Frameworks */,
+				2A5EC0D52AC45E0F00B8014C /* Storage in Frameworks */,
+				2A5EC0D82AC460AF00B8014C /* Analytics in Frameworks */,
+				2A5EC0D12AC45E0F00B8014C /* Dependencies in Frameworks */,
+				2A5EC0D32AC45E0F00B8014C /* SampleFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,7 +123,7 @@
 				2A5EC0CC2AC2CCBE00B8014C /* SampleFeature */,
 				2A5EC0BC2AC1868300B8014C /* Dependencies */,
 				2A5EC0B62AC15A6B00B8014C /* Storage */,
-				2A5EC0B02ABC631B00B8014C /* Analytics */,
+				2A5EC0D62AC45E6200B8014C /* Analytics */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -159,9 +161,10 @@
 			);
 			name = ModularAnalytics;
 			packageProductDependencies = (
-				2A5EC0C12AC1B1E400B8014C /* Dependencies */,
-				2A5EC0C32AC1B1EB00B8014C /* Analytics */,
-				2A5EC0C52AC1B1EB00B8014C /* Storage */,
+				2A5EC0D02AC45E0F00B8014C /* Dependencies */,
+				2A5EC0D22AC45E0F00B8014C /* SampleFeature */,
+				2A5EC0D42AC45E0F00B8014C /* Storage */,
+				2A5EC0D72AC460AF00B8014C /* Analytics */,
 			);
 			productName = ModularAnalytics;
 			productReference = 2A5EC07C2ABC2B9F00B8014C /* ModularAnalytics.app */;
@@ -524,17 +527,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2A5EC0C12AC1B1E400B8014C /* Dependencies */ = {
+		2A5EC0D02AC45E0F00B8014C /* Dependencies */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Dependencies;
 		};
-		2A5EC0C32AC1B1EB00B8014C /* Analytics */ = {
+		2A5EC0D22AC45E0F00B8014C /* SampleFeature */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Analytics;
+			productName = SampleFeature;
 		};
-		2A5EC0C52AC1B1EB00B8014C /* Storage */ = {
+		2A5EC0D42AC45E0F00B8014C /* Storage */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Storage;
+		};
+		2A5EC0D72AC460AF00B8014C /* Analytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Analytics;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
