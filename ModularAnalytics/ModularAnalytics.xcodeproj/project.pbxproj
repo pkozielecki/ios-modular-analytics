@@ -38,6 +38,7 @@
 		2A5EC0B02ABC631B00B8014C /* Analytics */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Analytics; path = ../Modules/Analytics; sourceTree = "<group>"; };
 		2A5EC0B62AC15A6B00B8014C /* Storage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Storage; path = ../Modules/Storage; sourceTree = "<group>"; };
 		2A5EC0BC2AC1868300B8014C /* Dependencies */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Dependencies; path = ../Modules/Dependencies; sourceTree = "<group>"; };
+		2A5EC0CC2AC2CCBE00B8014C /* SampleFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SampleFeature; path = ../Modules/SampleFeature; sourceTree = "<group>"; };
 		E81876E054CE627A2156C4C3 /* ModularAnalyticsApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModularAnalyticsApp.swift; path = Sources/ModularAnalyticsApp.swift; sourceTree = "<group>"; };
 		E8187B2AC6083EE7A9D9962D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Sources/AppDelegate.swift; sourceTree = "<group>"; };
 		E8187B88F4639952A8DA17CE /* DependenciesInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependenciesInitializer.swift; sourceTree = "<group>"; };
@@ -117,6 +118,7 @@
 		2A5EC0AE2ABC62EE00B8014C /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				2A5EC0CC2AC2CCBE00B8014C /* SampleFeature */,
 				2A5EC0BC2AC1868300B8014C /* Dependencies */,
 				2A5EC0B62AC15A6B00B8014C /* Storage */,
 				2A5EC0B02ABC631B00B8014C /* Analytics */,

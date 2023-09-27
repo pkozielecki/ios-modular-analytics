@@ -20,28 +20,29 @@ let package = Package(
         ],
         dependencies: [
             .package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "10.4.0")),
-//            .package(url: "https://github.com/pointfreeco/swift-dependencies", .upToNextMajor(from: "1.0.0")),
             .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.50.4"),
+            .package(path: "../Dependencies"),
+            .package(path: "../Storage"),
         ],
         targets: [
             .target(
                     name: "AnalyticsInterfaces",
-                    dependencies: [
-                        .product(name: "SwiftFormat", package: "SwiftFormat")
-                    ]
+                    dependencies: []
             ),
             .target(
                     name: "AnalyticsImplementation",
                     dependencies: [
-                        "AnalyticsInterfaces"
+                        "AnalyticsInterfaces",
+                        "Dependencies",
+                        "Storage",
                     ]
             ),
             .target(
                     name: "AnalyticsFirebaseClient",
                     dependencies: [
                         .product(name: "FirebaseAnalyticsSwift", package: "firebase-ios-sdk"),
-//                        .product(name: "Dependencies", package: "swift-dependencies"),
-                        "AnalyticsInterfaces"
+                        "AnalyticsInterfaces",
+                        "Storage",
                     ]
             ),
             .testTarget(
