@@ -25,7 +25,7 @@ final class StoreSecurePasswordUseCaseTest: XCTestCase {
             XCTFail("Should throw error")
         } catch {
             //  then:
-            XCTAssertEqual(error as? PasswordError, PasswordError.emptyPassword, "Should throw empty password error")
+            XCTAssertEqual(error as? PasswordStorageError, PasswordStorageError.emptyPassword, "Should throw empty password error")
         }
     }
 

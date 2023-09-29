@@ -10,19 +10,15 @@ final class PreviewSampleFeatureViewModel: SampleFeatureViewModel {
     var viewStatePublished: Published<SampleFeatureViewState> { _viewState }
     var viewStatePublisher: Published<SampleFeatureViewState>.Publisher { $viewState }
 
-    func onViewLoaded() {
+    func onViewLoaded() async {
         print("onViewLoaded")
     }
 
-    func retrievePasswordRequested() {
-        print("retrievePasswordRequested")
-    }
-
-    func generatePasswordRequested() {
+    func generatePasswordRequested() async {
         print("generatePasswordRequested")
     }
 
-    func storePasswordRequested() {
-        print("storePasswordRequested")
+    func storePasswordRequested(password: String) {
+        print("storePasswordRequested: \(password)")
     }
 }

@@ -21,10 +21,10 @@ public struct StoreSecurePasswordUseCase {
 
     public func store(password: String) async throws {
         guard !password.isEmpty else {
-            throw PasswordError.emptyPassword
+            throw PasswordStorageError.emptyPassword
         }
         guard let passwordData = password.encoded() else {
-            throw PasswordError.unableToEncodePassword
+            throw PasswordStorageError.unableToEncodePassword
         }
         await delayGenerator.delay(for: Double.random(in: 1...3))
         storage.set(passwordData, forKey: StorageKeys.password)
@@ -35,7 +35,19 @@ public enum StorageKeys {
     static let password = "password"
 }
 
-public enum PasswordError: Error {
+public enum PasswordStorageError: LocalizedError {
     case emptyPassword
     case unableToEncodePassword
+    case unknown
+
+    public var errorDescription: String? {
+        switch self {
+        case .emptyPassword:
+            return "Password cannot be empty"
+        case .unableToEncodePassword:
+            return "Unable to encode password"
+        case .unknown:
+            return "Unknown error has occurred"
+        }
+    }
 }
