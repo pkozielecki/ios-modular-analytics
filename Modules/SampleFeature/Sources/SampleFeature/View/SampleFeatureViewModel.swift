@@ -5,6 +5,8 @@
 
 import SwiftUI
 import Combine
+import DependenciesInterfaces
+import AnalyticsInterfaces
 
 enum SampleFeatureViewState {
     case loading
@@ -31,44 +33,64 @@ final class LiveSampleFeatureViewModel: SampleFeatureViewModel {
     private let generatePasswordUseCase: GenerateSecurePasswordUseCase
     private let storePasswordUseCase: StoreSecurePasswordUseCase
     private let retrievePasswordUseCase: RetrieveSecurePasswordUseCase
+    private let analyticsTracker: AnalyticsTracker
 
     init(
         generatePasswordUseCase: GenerateSecurePasswordUseCase = GenerateSecurePasswordUseCase(),
         storePasswordUseCase: StoreSecurePasswordUseCase = StoreSecurePasswordUseCase(),
-        retrievePasswordUseCase: RetrieveSecurePasswordUseCase = RetrieveSecurePasswordUseCase()
+        retrievePasswordUseCase: RetrieveSecurePasswordUseCase = RetrieveSecurePasswordUseCase(),
+        analyticsTracker: AnalyticsTracker = resolve()
     ) {
         self.generatePasswordUseCase = generatePasswordUseCase
         self.storePasswordUseCase = storePasswordUseCase
         self.retrievePasswordUseCase = retrievePasswordUseCase
+        self.analyticsTracker = analyticsTracker
     }
 
     @MainActor func onViewLoaded() async {
-        // TODO: call analytics
+        trackScreenEntered()
         if let password = await retrievePasswordUseCase.retrieve() {
             viewState = .passwordRetrieved(password)
+            trackPasswordEventNamed(.passwordRetrieved)
         } else {
             viewState = .noPasswordSet
+            trackPasswordEventNamed(.passwordNotSet)
         }
     }
 
     @MainActor func generatePasswordRequested() async {
+        trackPasswordEventNamed(.passwordGenerated)
         viewState = .loading
         let password = await generatePasswordUseCase.generatePassword()
         viewState = .passwordGenerated(password)
     }
 
     func storePasswordRequested(password: String) {
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
             do {
-                viewState = .settingPassword(password)
-                try await storePasswordUseCase.store(password: password)
-                viewState = .passwordRetrieved(password)
+                self?.viewState = .settingPassword(password)
+                try await self?.storePasswordUseCase.store(password: password)
+                self?.viewState = .passwordRetrieved(password)
+                self?.trackPasswordEventNamed(.passwordStored)
             } catch let error as LocalizedError {
-                viewState = .error(error)
+                self?.viewState = .error(error)
+                self?.trackPasswordEventNamed(.passwordStoreFailed)
             } catch {
-                viewState = .error(PasswordStorageError.unknown)
+                self?.viewState = .error(PasswordStorageError.unknown)
+                self?.trackPasswordEventNamed(.passwordStoreFailed)
             }
         }
+    }
+}
+
+private extension LiveSampleFeatureViewModel {
+
+    func trackScreenEntered() {
+        analyticsTracker.track(event: .makeScreenEnteredEvent(name: .passwordSetup))
+    }
+
+    func trackPasswordEventNamed(_ name: AnalyticsEvent.Name) {
+        analyticsTracker.track(event: .makePasswordEvent(name: name))
     }
 }
 

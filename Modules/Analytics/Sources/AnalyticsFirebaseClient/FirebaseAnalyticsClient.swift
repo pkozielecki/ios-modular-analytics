@@ -44,11 +44,19 @@ public final class FirebaseAnalyticsClient: AnalyticsClient {
     }
 
     public func trackFirstInstallation() {
-        analyticsWrapper.logEvent(AnalyticsEvent.Name.firstInstallation.rawValue, parameters: nil)
+        if !hasAppBeenLaunched {
+            analyticsWrapper.logEvent(AnalyticsEvent.Name.firstInstallation.rawValue, parameters: nil)
+            storage.set(true.encoded(), forKey: StorageKeys.hasBeenLaunched)
+        }
     }
 }
 
 private extension FirebaseAnalyticsClient {
+
+    var hasAppBeenLaunched: Bool {
+        let hasBeenLaunchedData = storage.data(forKey: StorageKeys.hasBeenLaunched)
+        return hasBeenLaunchedData?.decoded(into: Bool.self) ?? false
+    }
 
     func setSessionParameters(analyticsUser: AnalyticsUser?) {
         analyticsWrapper.setUserProperty(analyticsUser?.pushNotificationsEnabled.analyticsValue, forName: AnalyticsSessionParameters.pushNotifications.rawValue)

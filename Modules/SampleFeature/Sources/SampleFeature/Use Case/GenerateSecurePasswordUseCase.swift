@@ -5,10 +5,10 @@
 
 import Foundation
 
-public struct GenerateSecurePasswordUseCase {
+struct GenerateSecurePasswordUseCase {
     private let delayGenerator: DelayGenerator
 
-    public init(
+    init(
         delayGenerator: DelayGenerator = LiveDelayGenerator()
     ) {
         self.delayGenerator = delayGenerator
@@ -16,7 +16,7 @@ public struct GenerateSecurePasswordUseCase {
 
     // TODO: Move password generation to a separate utility.
 
-    public func generatePassword() async -> String {
+    func generatePassword() async -> String {
         await delayGenerator.delay(for: Double.random(in: 0.5...1))
         return UUID().uuidString
     }

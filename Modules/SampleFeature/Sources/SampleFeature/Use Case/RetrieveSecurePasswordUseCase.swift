@@ -7,14 +7,14 @@ import Foundation
 import StorageInterfaces
 import DependenciesInterfaces
 
-public struct RetrieveSecurePasswordUseCase {
+struct RetrieveSecurePasswordUseCase {
     private let storage: SimpleStorage
 
-    public init(storage: SimpleStorage = resolve()) {
+    init(storage: SimpleStorage = resolve()) {
         self.storage = storage
     }
 
-    public func retrieve() async -> String? {
+    func retrieve() async -> String? {
         guard let passwordData = storage.data(forKey: StorageKeys.password) else {
             return nil
         }

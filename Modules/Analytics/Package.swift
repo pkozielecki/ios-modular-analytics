@@ -14,7 +14,8 @@ let package = Package(
                     targets: [
                         "AnalyticsInterfaces",
                         "AnalyticsImplementation",
-                        "AnalyticsFirebaseClient"
+                        "AnalyticsFirebaseClient",
+                        "AnalyticsPlaceholderClient"
                     ]
             ),
         ],
@@ -41,6 +42,13 @@ let package = Package(
                     name: "AnalyticsFirebaseClient",
                     dependencies: [
                         .product(name: "FirebaseAnalyticsSwift", package: "firebase-ios-sdk"),
+                        "AnalyticsInterfaces",
+                        "Storage",
+                    ]
+            ),
+            .target(
+                    name: "AnalyticsPlaceholderClient",
+                    dependencies: [
                         "AnalyticsInterfaces",
                         "Storage",
                     ]

@@ -5,6 +5,6 @@
 
 import Foundation
 
-public protocol AnalyticsSessionManager {
+public protocol AnalyticsSessionManager: AnyObject {
     func start(session: AnalyticsSession)
 }

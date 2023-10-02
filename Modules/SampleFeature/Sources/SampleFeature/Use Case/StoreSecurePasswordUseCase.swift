@@ -7,11 +7,11 @@ import Foundation
 import DependenciesInterfaces
 import StorageInterfaces
 
-public struct StoreSecurePasswordUseCase {
+struct StoreSecurePasswordUseCase {
     private let storage: SimpleStorage
     private let delayGenerator: DelayGenerator
 
-    public init(
+    init(
         storage: SimpleStorage = resolve(),
         delayGenerator: DelayGenerator = LiveDelayGenerator()
     ) {
@@ -31,11 +31,7 @@ public struct StoreSecurePasswordUseCase {
     }
 }
 
-public enum StorageKeys {
-    static let password = "password"
-}
-
-public enum PasswordStorageError: LocalizedError {
+enum PasswordStorageError: LocalizedError {
     case emptyPassword
     case unableToEncodePassword
     case unknown

@@ -6,27 +6,26 @@
 import Foundation
 import XCTest
 import AnalyticsInterfaces
+import StorageInterfaces
 
 @testable import AnalyticsFirebaseClient
 
 final class Test: XCTestCase {
     let fixtureContext: [String: AnyHashable] = ["foo": "bar"]
     let fixtureCollection = AnalyticsEventCollection.screenTracking
-    let fixtureName = "fixtureName"
+    let fixtureName = AnalyticsEvent.Name.screenEntered
     var fakeFirebaseAnalyticsWrapper: FakeFirebaseAnalyticsWrapper.Type!
+    var fakeStorage: FakeSimpleStorage!
     var sut: FirebaseAnalyticsClient!
 
     override func setUp() {
+        fakeStorage = FakeSimpleStorage()
         fakeFirebaseAnalyticsWrapper = FakeFirebaseAnalyticsWrapper.self
-        sut = FirebaseAnalyticsClient(analyticsWrapper: fakeFirebaseAnalyticsWrapper)
+        sut = FirebaseAnalyticsClient(storage: fakeStorage, analyticsWrapper: fakeFirebaseAnalyticsWrapper)
     }
 
     override func tearDown() {
         fakeFirebaseAnalyticsWrapper.clearAll()
-    }
-
-    func test_whenX_shouldY() {
-        XCTAssertNotNil(sut, "")
     }
 
     func test_whenTrackingEvent_shouldTranslateItToFirebaseInternalFormat() {
@@ -37,7 +36,7 @@ final class Test: XCTestCase {
         sut.track(event: fixtureEvent)
 
         //  then:
-        let expectedName = "\(fixtureCollection.rawValue)_\(fixtureName)"
+        let expectedName = "\(fixtureCollection.rawValue)_\(fixtureName.rawValue)"
         XCTAssertEqual(fakeFirebaseAnalyticsWrapper.lastLoggedEventName, expectedName, "Should log an event with a proper name")
         XCTAssertEqual(
             fakeFirebaseAnalyticsWrapper.lastLoggedEventParameters as? [String: AnyHashable],
@@ -116,5 +115,28 @@ final class Test: XCTestCase {
         XCTAssertNil(fakeFirebaseAnalyticsWrapper.lastSetUserId, "Should clear user")
         XCTAssertNil(fakeFirebaseAnalyticsWrapper.lastSetUserProperties["notifications_enabled"], "Should user notifications property")
         XCTAssertNil(fakeFirebaseAnalyticsWrapper.lastSetUserProperties["is_biometric_enabled"], "Should user biometrics property")
+    }
+
+    func test_whenLaunchingAppForFirstTime_shouldSendProperEvent() async {
+        //  given:
+        fakeStorage.simulatedValues = nil
+
+        //  when:
+        sut.trackFirstInstallation()
+
+        //  then:
+        XCTAssertEqual(fakeFirebaseAnalyticsWrapper.lastLoggedEventName, AnalyticsEvent.Name.firstInstallation.rawValue, "Should log first installation event")
+    }
+
+    func test_whenLaunchingAppForSubsequentTime_shouldNotSendAnyEvent() async {
+        //  given:
+        let fixtureData = true.encoded()
+        fakeStorage.simulatedValues = [StorageKeys.hasBeenLaunched: fixtureData!]
+
+        //  when:
+        sut.trackFirstInstallation()
+
+        //  then:
+        XCTAssertNil(fakeFirebaseAnalyticsWrapper.lastLoggedEventName, "Should not track installation event")
     }
 }

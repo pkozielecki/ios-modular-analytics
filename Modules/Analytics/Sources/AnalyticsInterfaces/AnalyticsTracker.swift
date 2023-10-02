@@ -5,7 +5,7 @@
 
 import Foundation
 
-public protocol AnalyticsTracker {
+public protocol AnalyticsTracker: AnyObject {
     func track(event: AnalyticsEvent)
     func start(timedEvent: AnalyticsEvent)
     func stop(timedEvent: AnalyticsEvent)
