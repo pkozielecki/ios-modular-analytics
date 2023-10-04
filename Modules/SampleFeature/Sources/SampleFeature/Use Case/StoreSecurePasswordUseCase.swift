@@ -7,7 +7,11 @@ import Foundation
 import DependenciesInterfaces
 import StorageInterfaces
 
-struct StoreSecurePasswordUseCase {
+protocol StoreSecurePasswordUseCase {
+    func store(password: String) async throws
+}
+
+struct LiveStoreSecurePasswordUseCase: StoreSecurePasswordUseCase {
     private let storage: SimpleStorage
     private let delayGenerator: DelayGenerator
 

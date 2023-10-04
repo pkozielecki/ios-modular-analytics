@@ -15,6 +15,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.50.4"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.12.0"),
         .package(path: "../Analytics"),
         .package(path: "../Dependencies"),
         .package(path: "../Storage"),
@@ -29,6 +30,9 @@ let package = Package(
             ]),
         .testTarget(
             name: "SampleFeatureTests",
-            dependencies: ["SampleFeature"]),
+            dependencies: [
+                "SampleFeature",
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+            ]),
     ]
 )

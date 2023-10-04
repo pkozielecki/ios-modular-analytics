@@ -16,6 +16,8 @@ extension AnalyticsEvent {
         case passwordNotSet = "password_not_set"
         case passwordStored = "password_stored"
         case passwordStoreFailed = "password_store_failed"
+        case passwordCreation = "password_creation" // timed event
+        case passwordUpdate = "password_update" // timed event
     }
 
     public enum ScreenName: String {

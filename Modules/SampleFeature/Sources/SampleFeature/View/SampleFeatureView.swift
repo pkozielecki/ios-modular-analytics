@@ -6,7 +6,7 @@
 import SwiftUI
 
 struct SampleFeatureView<ViewModel>: View where ViewModel: SampleFeatureViewModel {
-    @StateObject var viewModel: ViewModel
+    @ObservedObject var viewModel: ViewModel
     @State private var internalPassword: String = ""
 
     var body: some View {
@@ -42,7 +42,9 @@ struct SampleFeatureView<ViewModel>: View where ViewModel: SampleFeatureViewMode
                     Spacer()
 
                     Button("Save") {
-                        viewModel.storePasswordRequested(password: internalPassword)
+                        Task {
+                            await viewModel.storePasswordRequested(password: internalPassword)
+                        }
                     }
                     .padding()
                     .disabled(isLoading || internalPassword.isEmpty)
@@ -61,20 +63,22 @@ struct SampleFeatureView<ViewModel>: View where ViewModel: SampleFeatureViewMode
                 .background(Color.white.opacity(0.5))
             }
         }
+        .onChange(of: viewModel.viewState) {
+            handleStateChange($0)
+        }
         .onAppear {
             Task {
                 await viewModel.onViewLoaded()
             }
-        }
-        .onChange(of: viewState) {
-            handleStateChange($0)
         }
         .alert(isPresented: .init(get: { error != nil }, set: { _ in })) {
             Alert(
                 title: Text("Error!"),
                 message: Text("An error has occurred \(error ?? "unknown error")"),
                 dismissButton: .cancel(Text("OK"), action: {
-                    viewModel.storePasswordRequested(password: internalPassword)
+                    Task {
+                        await viewModel.storePasswordRequested(password: internalPassword)
+                    }
                 })
             )
         }
@@ -118,7 +122,7 @@ private extension SampleFeatureView {
 
     func handleStateChange(_ state: SampleFeatureViewState) {
         switch state {
-        case let .passwordRetrieved(password), let .passwordGenerated(password):
+        case let .passwordRetrieved(password), let .passwordGenerated(password), let .settingPassword(password):
             internalPassword = password
         default:
             break // noop
@@ -129,7 +133,13 @@ private extension SampleFeatureView {
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = PreviewSampleFeatureViewModel()
-        viewModel.viewState = .noPasswordSet
-        return SampleFeatureView(viewModel: viewModel)
+//        viewModel.viewState = .loading
+//        viewModel.viewState = .noPasswordSet
+//        viewModel.viewState = .passwordGenerated("fakePass")
+//        viewModel.viewState = .passwordRetrieved("fakePass")
+//        viewModel.viewState = .error(PasswordStorageError.unableToEncodePassword)
+        let view = SampleFeatureView(viewModel: viewModel)
+        viewModel.viewState = .settingPassword("fakePass")
+        return view
     }
 }

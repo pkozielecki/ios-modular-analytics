@@ -5,7 +5,11 @@
 
 import Foundation
 
-struct GenerateSecurePasswordUseCase {
+protocol GenerateSecurePasswordUseCase {
+    func generatePassword() async -> String
+}
+
+struct LiveGenerateSecurePasswordUseCase: GenerateSecurePasswordUseCase {
     private let delayGenerator: DelayGenerator
 
     init(

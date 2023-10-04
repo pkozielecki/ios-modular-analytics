@@ -7,7 +7,11 @@ import Foundation
 import StorageInterfaces
 import DependenciesInterfaces
 
-struct RetrieveSecurePasswordUseCase {
+protocol RetrieveSecurePasswordUseCase {
+    func retrieve() async -> String?
+}
+
+struct LiveRetrieveSecurePasswordUseCase: RetrieveSecurePasswordUseCase {
     private let storage: SimpleStorage
 
     init(storage: SimpleStorage = resolve()) {

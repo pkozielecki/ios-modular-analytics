@@ -5,18 +5,19 @@
 
 import Foundation
 import XCTest
+import StorageInterfaces
 
 @testable import SampleFeature
 
 final class StoreSecurePasswordUseCaseTest: XCTestCase {
     var fakeDelayGenerator: FakeDelayGenerator!
     var fakeStorage: FakeStorage!
-    var sut: StoreSecurePasswordUseCase!
+    var sut: LiveStoreSecurePasswordUseCase!
 
     override func setUp() {
         fakeStorage = FakeStorage()
         fakeDelayGenerator = FakeDelayGenerator()
-        sut = StoreSecurePasswordUseCase(storage: fakeStorage, delayGenerator: fakeDelayGenerator)
+        sut = LiveStoreSecurePasswordUseCase(storage: fakeStorage, delayGenerator: fakeDelayGenerator)
     }
 
     func test_whenPasswordIsEmpty_shouldThrowError() async {

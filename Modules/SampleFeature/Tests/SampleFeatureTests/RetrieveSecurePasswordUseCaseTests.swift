@@ -5,16 +5,17 @@
 
 import Foundation
 import XCTest
+import StorageInterfaces
 
 @testable import SampleFeature
 
 final class RetrieveSecurePasswordUseCaseTest: XCTestCase {
     var fakeStorage: FakeStorage!
-    var sut: RetrieveSecurePasswordUseCase!
+    var sut: LiveRetrieveSecurePasswordUseCase!
 
     override func setUp() {
         fakeStorage = FakeStorage()
-        sut = RetrieveSecurePasswordUseCase(storage: fakeStorage)
+        sut = LiveRetrieveSecurePasswordUseCase(storage: fakeStorage)
     }
 
     func test_whenNoPasswordIsStored_shouldRetrieveNoPassword() async {

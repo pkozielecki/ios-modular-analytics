@@ -8,8 +8,13 @@ import SampleFeature
 
 struct ContentView: View {
     var body: some View {
+        makeInitialView()
+    }
+}
+
+private extension ContentView {
+    func makeInitialView() -> some View {
         SampleFeatureFactory.makeInitialView()
-                .padding()
     }
 }
 

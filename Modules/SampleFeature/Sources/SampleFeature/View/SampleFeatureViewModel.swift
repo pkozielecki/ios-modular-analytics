@@ -24,7 +24,7 @@ protocol SampleFeatureViewModel: ObservableObject {
 
     func onViewLoaded() async
     func generatePasswordRequested() async
-    func storePasswordRequested(password: String)
+    func storePasswordRequested(password: String) async
 }
 
 final class LiveSampleFeatureViewModel: SampleFeatureViewModel {
@@ -34,11 +34,12 @@ final class LiveSampleFeatureViewModel: SampleFeatureViewModel {
     private let storePasswordUseCase: StoreSecurePasswordUseCase
     private let retrievePasswordUseCase: RetrieveSecurePasswordUseCase
     private let analyticsTracker: AnalyticsTracker
+    private var initialPasswordSet: Bool? = false
 
     init(
-        generatePasswordUseCase: GenerateSecurePasswordUseCase = GenerateSecurePasswordUseCase(),
-        storePasswordUseCase: StoreSecurePasswordUseCase = StoreSecurePasswordUseCase(),
-        retrievePasswordUseCase: RetrieveSecurePasswordUseCase = RetrieveSecurePasswordUseCase(),
+        generatePasswordUseCase: GenerateSecurePasswordUseCase = LiveGenerateSecurePasswordUseCase(),
+        storePasswordUseCase: StoreSecurePasswordUseCase = LiveStoreSecurePasswordUseCase(),
+        retrievePasswordUseCase: RetrieveSecurePasswordUseCase = LiveRetrieveSecurePasswordUseCase(),
         analyticsTracker: AnalyticsTracker = resolve()
     ) {
         self.generatePasswordUseCase = generatePasswordUseCase
@@ -50,9 +51,13 @@ final class LiveSampleFeatureViewModel: SampleFeatureViewModel {
     @MainActor func onViewLoaded() async {
         trackScreenEntered()
         if let password = await retrievePasswordUseCase.retrieve() {
+            initialPasswordSet = false
+            analyticsTracker.start(timedEvent: .makePasswordEvent(name: .passwordUpdate))
             viewState = .passwordRetrieved(password)
             trackPasswordEventNamed(.passwordRetrieved)
         } else {
+            initialPasswordSet = true
+            analyticsTracker.start(timedEvent: .makePasswordEvent(name: .passwordCreation))
             viewState = .noPasswordSet
             trackPasswordEventNamed(.passwordNotSet)
         }
@@ -65,20 +70,19 @@ final class LiveSampleFeatureViewModel: SampleFeatureViewModel {
         viewState = .passwordGenerated(password)
     }
 
-    func storePasswordRequested(password: String) {
-        Task { @MainActor [weak self] in
-            do {
-                self?.viewState = .settingPassword(password)
-                try await self?.storePasswordUseCase.store(password: password)
-                self?.viewState = .passwordRetrieved(password)
-                self?.trackPasswordEventNamed(.passwordStored)
-            } catch let error as LocalizedError {
-                self?.viewState = .error(error)
-                self?.trackPasswordEventNamed(.passwordStoreFailed)
-            } catch {
-                self?.viewState = .error(PasswordStorageError.unknown)
-                self?.trackPasswordEventNamed(.passwordStoreFailed)
-            }
+    @MainActor func storePasswordRequested(password: String) async {
+        do {
+            viewState = .settingPassword(password)
+            try await storePasswordUseCase.store(password: password)
+            viewState = .passwordRetrieved(password)
+            trackPasswordEventNamed(.passwordStored)
+            trackPasswordSettingProcessEnd()
+        } catch let error as LocalizedError {
+            viewState = .error(error)
+            trackPasswordEventNamed(.passwordStoreFailed)
+        } catch {
+            viewState = .error(PasswordStorageError.unknown)
+            trackPasswordEventNamed(.passwordStoreFailed)
         }
     }
 }
@@ -91,6 +95,16 @@ private extension LiveSampleFeatureViewModel {
 
     func trackPasswordEventNamed(_ name: AnalyticsEvent.Name) {
         analyticsTracker.track(event: .makePasswordEvent(name: name))
+    }
+
+    func trackPasswordSettingProcessEnd() {
+        guard let initialPasswordSet else { return }
+        if initialPasswordSet {
+            analyticsTracker.stop(timedEvent: .makePasswordEvent(name: .passwordCreation))
+        } else {
+            analyticsTracker.stop(timedEvent: .makePasswordEvent(name: .passwordUpdate))
+        }
+        self.initialPasswordSet = nil
     }
 }
 
